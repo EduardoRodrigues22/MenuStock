@@ -1,0 +1,1298 @@
+:root {
+    --bg: #f7f5ef;
+    --surface: #ffffff;
+    --surface-soft: #f1eee6;
+    --text: #20252b;
+    --muted: #66717c;
+    --line: #ded8ca;
+    --primary: #2f4858;
+    --primary-dark: #213540;
+    --secondary: #e85d2a;
+    --secondary-dark: #c74718;
+    --success: #1f8a5b;
+    --danger: #b52d2a;
+    --warning: #a46c00;
+    --radius: 8px;
+    --shadow: 0 10px 28px rgba(35, 45, 55, 0.08);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    background: var(--bg);
+    color: var(--text);
+    font-family: Arial, Helvetica, sans-serif;
+    line-height: 1.5;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+button,
+input,
+select,
+textarea {
+    font: inherit;
+}
+
+input,
+select,
+textarea {
+    width: 100%;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    background: #fff;
+    color: var(--text);
+    padding: 10px 12px;
+}
+
+textarea {
+    resize: vertical;
+}
+
+label {
+    display: grid;
+    gap: 6px;
+    color: var(--muted);
+    font-size: 0.92rem;
+}
+
+fieldset {
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 16px;
+}
+
+legend {
+    padding: 0 8px;
+    font-weight: 700;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th,
+td {
+    padding: 5px;
+    border-bottom: 1px solid var(--line);
+    text-align: left;
+    vertical-align: top;
+}
+
+th {
+    color: var(--muted);
+    font-size: 0.82rem;
+    text-transform: uppercase;
+}
+
+.container {
+    width: min(1180px, calc(100% - 32px));
+    margin: 0 auto;
+}
+
+.admin-body .container {
+    width: min(1400px, calc(100% - 32px));
+}
+
+.site-header,
+.admin-topbar {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    justify-content: space-between;
+    min-height: 72px;
+    padding: 12px 28px;
+    background: rgba(255, 255, 255, 0.94);
+    border-bottom: 1px solid var(--line);
+    backdrop-filter: blur(12px);
+}
+
+.brand {
+    color: var(--primary);
+    font-size: 1.35rem;
+    font-weight: 800;
+    white-space: nowrap;
+}
+
+.site-nav,
+.admin-nav,
+.site-actions,
+.topbar-actions,
+.inline-form,
+.form-actions,
+.section-head,
+.cart-summary,
+.order-head {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.site-nav,
+.admin-nav {
+    flex: 1;
+}
+
+.site-nav a,
+.admin-nav a {
+    color: var(--muted);
+    padding: 8px 10px;
+    border-radius: 6px;
+}
+
+.site-nav a:hover,
+.admin-nav a:hover {
+    background: var(--surface-soft);
+    color: var(--text);
+}
+
+.admin-body {
+    background: #eef1f2;
+}
+
+.admin-main {
+    padding: 28px 0 44px;
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 38px;
+    border: 1px solid transparent;
+    border-radius: 6px;
+    padding: 8px 14px;
+    cursor: pointer;
+    font-weight: 700;
+}
+
+.btn-primary {
+    background: var(--primary);
+    color: #fff;
+}
+
+.btn-primary:hover {
+    background: var(--primary-dark);
+}
+
+.btn-secondary {
+    background: var(--secondary);
+    color: #fff;
+}
+
+.btn-secondary:hover {
+    background: var(--secondary-dark);
+}
+
+.btn-danger {
+    background: var(--danger);
+    color: #fff;
+}
+
+.btn-ghost {
+    background: transparent;
+    border-color: var(--line);
+    color: var(--primary);
+}
+
+.btn[disabled],
+button[disabled] {
+    cursor: not-allowed;
+    opacity: 0.55;
+}
+
+.badge {
+    display: inline-flex;
+    min-width: 22px;
+    min-height: 22px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    background: var(--secondary);
+    color: #fff;
+    font-size: 0.78rem;
+}
+
+.hero {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 24px;
+    min-height: 260px;
+    padding: 52px 0 32px;
+    border-bottom: 1px solid var(--line);
+}
+
+.hero h1,
+.page-heading h1 {
+    max-width: 720px;
+    margin: 0;
+    color: var(--primary);
+    font-size: clamp(2rem, 5vw, 4rem);
+    line-height: 1;
+}
+
+.hero p,
+.page-heading p {
+    max-width: 620px;
+    color: var(--muted);
+    font-size: 1.05rem;
+}
+
+.eyebrow {
+    margin: 0 0 8px;
+    color: var(--secondary);
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0;
+    text-transform: uppercase;
+}
+
+.toolbar {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 12px;
+    margin: 22px 0;
+    flex-wrap: wrap;
+}
+
+.filters {
+    display: flex;
+    align-items: end;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.filters label {
+    min-width: min(200px, 100%);
+}
+
+.filters .btn {
+    align-self: end;
+    white-space: nowrap;
+}
+
+.grid {
+    display: grid;
+    gap: 18px;
+}
+
+.menu-grid {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    padding: 20px 0 44px;
+    align-items: stretch;
+}
+
+.card,
+.panel,
+.stat-card,
+.empty-state {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+}
+
+.card {
+    overflow: hidden;
+}
+
+.dish-card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.dish-card .card-content {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+}
+
+.card-content,
+.panel,
+.empty-state {
+    padding: 18px;
+}
+
+.dish-image-link {
+    display: block;
+    flex: 0 0 auto;
+}
+
+.dish-image,
+.detail-image {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+    background: var(--surface-soft);
+}
+
+.dish-card h2,
+.panel h2 {
+    margin: 8px 0;
+    color: var(--primary);
+}
+
+.dish-card p {
+    min-height: 72px;
+    color: var(--muted);
+}
+
+.dish-meta,
+.price-row,
+.reservation-row,
+.table-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: space-between;
+}
+
+.dish-meta,
+.muted {
+    color: var(--muted);
+    font-size: 0.9rem;
+}
+
+.price-row strong {
+    color: var(--primary);
+    font-size: 1.25rem;
+}
+
+.price-row.large {
+    justify-content: flex-start;
+}
+
+.old-price {
+    color: var(--muted);
+    text-decoration: line-through;
+}
+
+.card-actions {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-top: auto;
+    padding-top: 16px;
+}
+
+/* ── Menu card grid: altura uniforme via subgrid ── */
+.menu-card-grid {
+    grid-auto-rows: 1fr;
+}
+
+.menu-card-grid .dish-card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: 0;
+}
+
+.menu-card-grid .dish-card .menu-card-content {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    height: 100%;
+    gap: 8px;
+}
+
+.menu-card-grid .dish-meta {
+    min-height: 1.5rem;
+    overflow: hidden;
+}
+
+.menu-card-grid .dish-title {
+    display: -webkit-box;
+    margin: 0;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    font-size: 1.35rem;
+    line-height: 1.25;
+    min-height: 3.375rem;
+    max-height: 3.375rem;
+}
+
+.menu-card-grid .dish-description {
+    display: -webkit-box;
+    margin: 0;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 4;
+    color: var(--muted);
+    line-height: 1.5;
+    min-height: 6rem;
+    max-height: 6rem;
+}
+
+.dish-card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-top: auto;
+    padding-top: 12px;
+    flex-wrap: wrap;
+}
+
+.menu-card-grid .dish-price-row {
+    flex: 0 0 auto;
+    justify-content: center;
+    min-width: max-content;
+}
+
+.menu-card-grid .dish-card-actions {
+    display: flex;
+    flex: 0 0 auto;
+    justify-content: center;
+    align-items: center;
+    margin-top: 0;
+    padding-top: 0;
+}
+
+.menu-card-grid .dish-card-actions .btn,
+.menu-card-grid .dish-card-actions .inline-form {
+    width: auto;
+    min-width: 0;
+}
+
+.menu-card-grid .dish-card-actions .inline-form {
+    display: flex;
+}
+
+.menu-card-grid .dish-card-actions .inline-form .btn {
+    width: auto;
+}
+
+.menu-card-grid .dish-card-actions>.btn:only-child {
+    min-width: 7.75rem;
+    max-width: 100%;
+    padding-inline: 12px;
+    text-align: center;
+    white-space: normal;
+}
+
+.auth-grid,
+.split-layout,
+.detail-layout {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+    padding: 32px 0;
+}
+
+/* ── Categorias ── */
+.categorias-layout {
+    grid-template-columns: 320px 1fr;
+}
+
+.categorias-layout .categoria-create-form {
+    align-self: start;
+}
+
+.categorias-layout .categoria-create-form h2 {
+    text-align: center;
+}
+
+.categorias-layout .categoria-create-form .form-actions {
+    justify-content: center;
+}
+
+.categorias-table {
+    min-width: 750px;
+}
+
+.categorias-table th:first-child,
+.categorias-table td:first-child {
+    width: 200px;
+}
+
+.categorias-table th:nth-child(3),
+.categorias-table td:nth-child(3),
+.categorias-table th:last-child,
+.categorias-table td:last-child {
+    width: 1%;
+    white-space: nowrap;
+}
+
+.categorias-table td {
+    vertical-align: middle;
+}
+
+.categorias-table textarea {
+    min-width: 240px;
+}
+
+.categoria-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: nowrap;
+}
+
+.categoria-actions form {
+    margin: 0;
+}
+
+.categoria-actions .btn {
+    white-space: nowrap;
+}
+
+/* ── Ingredientes ── */
+.ingredientes-layout {
+    grid-template-columns: 320px 1fr;
+}
+
+.ingredientes-layout>.panel.stack-form {
+    align-self: start;
+}
+
+.ingredientes-layout>.panel.stack-form h2 {
+    text-align: center;
+}
+
+.ingredientes-layout td {
+    vertical-align: middle;
+    white-space: nowrap;
+}
+
+.ingredientes-layout td:first-child input {
+    min-width: 200px;
+    max-width: 300px;
+    white-space: normal;
+}
+
+.unidade-input {
+    max-width: 90px;
+}
+
+.ingredientes-table {
+    min-width: 750px;
+}
+
+/* ── Pratos ── */
+.pratos-table {
+    min-width: 860px;
+}
+
+.pratos-table th,
+.pratos-table td {
+    text-align: center;
+    vertical-align: middle;
+}
+
+.pratos-table .table-title {
+    text-align: left;
+}
+
+.prato-actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: nowrap;
+}
+
+.prato-actions form {
+    margin: 0;
+}
+
+.prato-actions .btn,
+.prato-actions .status,
+.prato-actions .muted {
+    white-space: nowrap;
+}
+
+.stack,
+.stack-form {
+    display: grid;
+    gap: 14px;
+}
+
+.page-heading {
+    padding: 28px 0 8px;
+}
+
+.table-wrap {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.usuarios-table {
+    min-width: 900px;
+}
+
+/* ── Carrinho (cart) table ── */
+.cart-table th,
+.cart-table td {
+    text-align: center;
+    vertical-align: middle;
+}
+
+/* Primeira coluna (Prato) alinhada à esquerda */
+.cart-table th:first-child,
+.cart-table td:first-child {
+    text-align: left;
+}
+
+/* Controle de quantidade com botões - e + */
+.qty-control {
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    background: #fff;
+    overflow: hidden;
+    height: 32px;
+}
+
+.qty-btn {
+    background: none;
+    border: none;
+    width: 28px;
+    height: 100%;
+    cursor: pointer;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    transition: background-color 0.2s;
+    user-select: none;
+    padding: 0;
+}
+
+.qty-minus {
+    padding-bottom: 3px;
+    /* Nudges the minus sign up to align with center */
+}
+
+.qty-btn:hover {
+    background-color: var(--surface-soft);
+}
+
+.qty-btn:active {
+    background-color: var(--line);
+}
+
+.cart-table .qty-input {
+    width: 32px;
+    height: 100%;
+    border: none;
+    border-radius: 0;
+    padding: 0;
+    text-align: center;
+    font-weight: bold;
+    background: transparent;
+    pointer-events: none;
+    -moz-appearance: textfield;
+}
+
+.cart-table .qty-input::-webkit-outer-spin-button,
+.cart-table .qty-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Painel do carrinho centralizado com largura máxima */
+.cart-panel {
+    max-width: 860px;
+    margin: 0 auto;
+}
+
+.cart-summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 5px 0;
+    margin-top: 10px;
+    font-size: 1.1rem;
+}
+
+
+.reservas-table th,
+.reservas-table td {
+    text-align: center;
+    vertical-align: middle;
+}
+
+.reservas-table td strong,
+.reservas-table td .muted {
+    display: block;
+}
+
+.panel.table-wrap .reserva-status-form {
+    flex-wrap: nowrap;
+    justify-content: center;
+}
+
+.panel.table-wrap .reserva-status-form select {
+    width: auto;
+    min-width: 150px;
+}
+
+.panel.table-wrap .reserva-status-form .btn {
+    flex: 0 0 auto;
+    white-space: nowrap;
+}
+
+.panel.order-card .pedido-status-form {
+    flex-wrap: nowrap;
+}
+
+.panel.order-card .pedido-status-form select {
+    width: auto;
+    min-width: 150px;
+}
+
+.panel.order-card .pedido-status-form .btn {
+    flex: 0 0 auto;
+    white-space: nowrap;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 14px;
+    margin: 22px 0;
+}
+
+.stats-grid-centered {
+    grid-template-columns: repeat(auto-fit, minmax(180px, 220px));
+    justify-content: center;
+}
+
+.stat-card {
+    padding: 18px;
+}
+
+.stat-card span {
+    color: var(--muted);
+}
+
+.stat-card strong {
+    display: block;
+    margin-top: 8px;
+    color: var(--primary);
+    font-size: 1.8rem;
+}
+
+.alert {
+    margin: 14px 0;
+    padding: 12px 14px;
+    border-radius: 6px;
+    border: 1px solid var(--line);
+    background: var(--surface);
+}
+
+.alert-success {
+    border-color: rgba(31, 138, 91, 0.35);
+    color: var(--success);
+}
+
+.alert-error {
+    border-color: rgba(181, 45, 42, 0.35);
+    color: var(--danger);
+}
+
+.alert-warning {
+    border-color: rgba(164, 108, 0, 0.35);
+    color: var(--warning);
+}
+
+.status {
+    display: inline-flex;
+    align-items: center;
+    min-height: 26px;
+    border-radius: 999px;
+    background: var(--surface-soft);
+    color: var(--primary);
+    padding: 4px 10px;
+    font-size: 0.82rem;
+    font-weight: 800;
+}
+
+.status-recebido,
+.status-pendente {
+    background: #fff4d7;
+    color: #7d5600;
+}
+
+.status-preparo {
+    background: #ffe3d5;
+    color: #9b3e13;
+}
+
+.status-pronto,
+.status-confirmada {
+    background: #dff3e8;
+    color: #176241;
+}
+
+.status-entregue {
+    background: #dae8f0;
+    color: #24475d;
+}
+
+.status-cancelado,
+.status-cancelada {
+    background: #f7dedd;
+    color: #8a2522;
+}
+
+.tag-list {
+    display: flex;
+    gap: 8px;
+    padding: 0;
+    margin: 10px 0;
+    list-style: none;
+    flex-wrap: wrap;
+}
+
+.tag-list li {
+    border-radius: 999px;
+    background: var(--surface-soft);
+    padding: 6px 10px;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.check-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text);
+}
+
+.check-row input {
+    width: auto;
+}
+
+.ingredient-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 10px;
+}
+
+.ingredient-row {
+    display: grid;
+    grid-template-columns: auto 1fr 60px 50px;
+    align-items: center;
+    gap: 8px;
+    color: var(--text);
+}
+
+.ingredient-row input[type='checkbox'] {
+    width: auto;
+}
+
+.ingredient-row input[type='number'] {
+    padding: 6px 4px;
+    text-align: center;
+}
+
+.narrow-form {
+    max-width: 560px;
+}
+
+.wide-form {
+    max-width: 920px;
+}
+
+.centered-container {
+    max-width: 920px;
+    margin: 0 auto;
+}
+
+.centered-container .page-heading {
+    text-align: center;
+}
+
+.centered-container .page-heading h1 {
+    margin: 0 auto;
+}
+
+.centered-container .page-heading p {
+    margin: 8px auto 0;
+}
+
+.centered-container .form-actions {
+    justify-content: center;
+}
+
+.centered-container .narrow-form {
+    margin: 0 auto;
+}
+
+.thumb {
+    width: 56px;
+    height: 56px;
+    border-radius: 6px;
+    object-fit: cover;
+    background: var(--surface-soft);
+}
+
+.table-title {
+    justify-content: flex-start;
+}
+
+.table-title div,
+.reservation-row div {
+    display: grid;
+    gap: 2px;
+}
+
+.small-input {
+    max-width: 50px;
+}
+
+.qty-input {
+    max-width: 90px;
+}
+
+.cart-summary {
+    justify-content: flex-end;
+    padding-top: 16px;
+}
+
+.order-head {
+    justify-content: space-between;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 12px;
+}
+
+.status-steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    padding: 0;
+    margin: 16px 0;
+    list-style: none;
+}
+
+.status-steps li {
+    border-radius: 6px;
+    background: var(--surface-soft);
+    color: var(--muted);
+    padding: 8px;
+    text-align: center;
+    font-weight: 700;
+}
+
+.status-steps li.active {
+    background: var(--primary);
+    color: #fff;
+}
+
+@media (max-width: 900px) {
+
+    .site-header,
+    .admin-topbar {
+        display: flex;
+        flex-direction: row !important;
+        flex-wrap: wrap !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        gap: 10px;
+        padding: 10px 16px;
+        position: sticky;
+        top: 0;
+    }
+
+    .site-header .brand,
+    .admin-topbar .brand {
+        order: 1;
+        flex: none;
+    }
+
+    .site-header .site-actions,
+    .admin-topbar .topbar-actions {
+        order: 2;
+        width: auto !important;
+        flex: none;
+        justify-content: flex-end !important;
+        gap: 8px;
+    }
+
+    /* Remove o nome do usuário no mobile */
+    .site-header .site-actions span,
+    .admin-topbar .topbar-actions span {
+        display: none !important;
+    }
+
+    /* Links de navegação roláveis horizontalmente no mobile/tablet */
+    .site-nav,
+    .admin-nav {
+        order: 3;
+        width: 100%;
+        flex: none;
+        display: flex;
+        flex-wrap: nowrap !important;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        gap: 6px;
+        padding: 6px 2px;
+        scrollbar-width: none; /* Firefox */
+        margin-top: 6px;
+    }
+
+    .site-nav {
+        justify-content: center !important; /* centralizar cardápio carrinho meus pedidos reserva */
+    }
+
+    .admin-nav {
+        justify-content: flex-start !important; /* rolável a partir do início */
+    }
+
+    .site-nav::-webkit-scrollbar,
+    .admin-nav::-webkit-scrollbar {
+        display: none; /* Chrome/Safari/Opera */
+    }
+
+    .hero,
+    .auth-grid,
+    .split-layout,
+    .detail-layout {
+        grid-template-columns: 1fr;
+        display: grid;
+    }
+
+    /* Colapsar layouts split (categorias, ingredientes, promoções) */
+    .categorias-layout,
+    .ingredientes-layout,
+    .promocoes-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .hero {
+        align-items: flex-start;
+    }
+
+    /* Tabelas com min-width menores para melhor scroll em tablets */
+    .categorias-table {
+        min-width: 600px;
+    }
+
+    .pratos-table {
+        min-width: 700px;
+    }
+
+    .promocoes-table {
+        min-width: 700px;
+    }
+
+    .ingredientes-table {
+        min-width: 600px;
+    }
+
+    .usuarios-table {
+        min-width: 700px;
+    }
+}
+
+@media (max-width: 640px) {
+    .container {
+        width: min(100% - 20px, 1180px);
+    }
+
+    .admin-body .container {
+        width: min(100% - 16px, 1400px);
+    }
+
+    .hero h1,
+    .page-heading h1 {
+        font-size: 2rem;
+    }
+
+    .form-grid,
+    .status-steps {
+        grid-template-columns: 1fr;
+    }
+
+    .ingredient-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .ingredient-row {
+        grid-template-columns: auto 1fr 50px 40px;
+        gap: 6px;
+    }
+
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .stat-card strong {
+        font-size: 1.4rem;
+    }
+
+    .toolbar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .filters {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .filters label {
+        min-width: 100%;
+    }
+
+    .cart-panel {
+        max-width: 100%;
+    }
+
+    .narrow-form,
+    .wide-form {
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+
+    .admin-main {
+        padding: 16px 0 28px;
+    }
+
+    .page-heading {
+        padding: 16px 0 4px;
+    }
+
+    .hero h1,
+    .page-heading h1 {
+        font-size: 1.6rem;
+    }
+
+    .hero p,
+    .page-heading p {
+        font-size: 0.92rem;
+    }
+
+    .btn {
+        padding: 6px 10px;
+        font-size: 0.88rem;
+        min-height: 34px;
+    }
+
+    .card-content,
+    .panel,
+    .empty-state {
+        padding: 14px;
+    }
+
+    .menu-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .dish-card-footer {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .order-head {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+
+    .cart-summary {
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 8px;
+    }
+
+    .reservation-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+    }
+
+    .site-nav a,
+    .admin-nav a {
+        padding: 6px 8px;
+        font-size: 0.88rem;
+    }
+
+    .brand {
+        font-size: 1.15rem;
+    }
+
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ── Promoções ── */
+.promocoes-layout {
+    grid-template-columns: 380px 1fr;
+}
+
+.promocoes-layout>.panel.stack-form {
+    align-self: start;
+}
+
+.promocoes-layout>.panel.stack-form h2 {
+    text-align: center;
+}
+
+.promocoes-layout>.panel.stack-form .form-actions {
+    justify-content: center;
+}
+
+.promocoes-table {
+    min-width: 900px;
+}
+
+.promocoes-table th,
+.promocoes-table td {
+    text-align: center;
+    vertical-align: middle;
+}
+
+.promocoes-table td:nth-child(3),
+.promocoes-table td:nth-child(4) {
+    white-space: nowrap;
+}
+
+.promocao-actions {
+    justify-content: center;
+    flex-wrap: nowrap;
+}
+
+.promocao-actions form {
+    margin: 0;
+}
+
+.promocao-actions .btn {
+    white-space: nowrap;
+}

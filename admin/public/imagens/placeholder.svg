@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="420" viewBox="0 0 640 420" role="img" aria-label="Imagem do prato">
+  <rect width="640" height="420" fill="#f2f0e8"/>
+  <circle cx="320" cy="210" r="120" fill="#ffffff" stroke="#d9d4c7" stroke-width="10"/>
+  <circle cx="320" cy="210" r="70" fill="#e85d2a" opacity="0.18"/>
+  <path d="M250 232c40 34 100 34 140 0" fill="none" stroke="#2f4858" stroke-width="12" stroke-linecap="round"/>
+  <circle cx="284" cy="180" r="12" fill="#2f4858"/>
+  <circle cx="356" cy="180" r="12" fill="#2f4858"/>
+  <text x="320" y="360" text-anchor="middle" font-family="Arial, sans-serif" font-size="30" fill="#2f4858">MenuStock</text>
+</svg>
