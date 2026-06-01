@@ -35,9 +35,11 @@ require_once __DIR__ . '/admin/config/public_header.php';
         <p>Escolha seus pratos e monte o carrinho.</p>
     </div>
 
-    <a class="btn btn-secondary" href="reserva.php">
-        Reservar mesa
-    </a>
+    <?php if (!$publicUser || ($publicUser['tipo'] ?? '') !== 'garcom'): ?>
+        <a class="btn btn-secondary" href="reserva.php">
+            Reservar mesa
+        </a>
+    <?php endif; ?>
 </section>
 
 <section class="toolbar">

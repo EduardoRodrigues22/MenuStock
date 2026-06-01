@@ -26,7 +26,11 @@ $flashMessages = consumeFlash();
 <header class="site-header">
     <a class="brand" href="index.php">MenuStock</a>
     <nav class="site-nav" aria-label="Menu principal">
-        <a href="index.php">Cardápio</a>
+        <?php if ($publicUser && $publicUser['tipo'] === 'garcom'): ?>
+            <a href="admin/views/menu_garcom.php">Menu</a>
+        <?php else: ?>
+            <a href="index.php">Cardápio</a>
+        <?php endif; ?>
         <?php if ($publicUser && $publicUser['tipo'] === 'user'): ?>
             <a href="carrinho.php">Carrinho <span class="badge"><?= $cartCount ?></span></a>
             <a href="meus_pedidos.php">Meus pedidos</a>

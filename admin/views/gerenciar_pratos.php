@@ -59,14 +59,18 @@ require_once __DIR__ . '/../config/header_admin.php';
 </section>
 
 <div class="panel table-wrap">
-    <table class="pratos-table">
+    <table class="pratos-table <?= !hasRole('admin') ? 'table-garcom' : '' ?>">
         <thead>
             <tr>
                 <th>Prato</th>
-                <th>Categoria</th>
+                <?php if (hasRole('admin')): ?>
+                    <th>Categoria</th>
+                <?php endif; ?>
                 <th>Preço</th>
                 <th>Tempo</th>
-                <th>Ações</th>
+                <?php if (hasRole('admin')): ?>
+                    <th>Ações</th>
+                <?php endif; ?>
             </tr>
         </thead>
         <tbody>
@@ -77,11 +81,15 @@ require_once __DIR__ . '/../config/header_admin.php';
                             <img src="../public/imagens/<?= e($prato['imagem'] ?: 'placeholder.svg') ?>" onerror="this.src='../public/imagens/placeholder.svg'" alt="" class="thumb">
                             <div>
                                 <strong><?= e($prato['nome']) ?></strong>
-                                <span class="muted"><?= e(strlen((string) $prato['descricao']) > 80 ? substr((string) $prato['descricao'], 0, 80) . '...' : (string) $prato['descricao']) ?></span>
+                                <?php if (hasRole('admin')): ?>
+                                    <span class="muted"><?= e(strlen((string) $prato['descricao']) > 80 ? substr((string) $prato['descricao'], 0, 80) . '...' : (string) $prato['descricao']) ?></span>
+                                <?php endif; ?>
                             </div>
                         </div>
                     </td>
-                    <td><?= e($prato['categoria']) ?></td>
+                    <?php if (hasRole('admin')): ?>
+                        <td><?= e($prato['categoria']) ?></td>
+                    <?php endif; ?>
                     <td>
                         <?php if ($prato['preco_promocional'] !== null): ?>
                             <span class="old-price"><?= formatMoney($prato['preco']) ?></span><br>
@@ -91,40 +99,42 @@ require_once __DIR__ . '/../config/header_admin.php';
                         <?php endif; ?>
                     </td>
                     <td><?= (int) $prato['tempo_preparo'] ?> min</td>
-                    <td>
-                        <div class="prato-actions">
-                            <?php if (canManagePratoDisponibilidade()): ?>
-                                <form method="post" class="inline-form">
-                                    <?= csrfField() ?>
-                                    <input type="hidden" name="acao" value="toggle">
-                                    <input type="hidden" name="id" value="<?= (int) $prato['id'] ?>">
-                                    <input type="hidden" name="disponivel" value="<?= (int) $prato['disponivel'] === 1 ? 0 : 1 ?>">
-                                    <button class="btn <?= (int) $prato['disponivel'] === 1 ? 'btn-secondary' : 'btn-ghost' ?>" type="submit">
+                    <?php if (hasRole('admin')): ?>
+                        <td>
+                            <div class="prato-actions">
+                                <?php if (canManagePratoDisponibilidade()): ?>
+                                    <form method="post" class="inline-form">
+                                        <?= csrfField() ?>
+                                        <input type="hidden" name="acao" value="toggle">
+                                        <input type="hidden" name="id" value="<?= (int) $prato['id'] ?>">
+                                        <input type="hidden" name="disponivel" value="<?= (int) $prato['disponivel'] === 1 ? 0 : 1 ?>">
+                                        <button class="btn <?= (int) $prato['disponivel'] === 1 ? 'btn-secondary' : 'btn-ghost' ?>" type="submit">
+                                            <?= (int) $prato['disponivel'] === 1 ? 'Ativo' : 'Inativo' ?>
+                                        </button>
+                                    </form>
+                                <?php else: ?>
+                                    <span class="status <?= (int) $prato['disponivel'] === 1 ? 'status-pronto' : 'status-cancelado' ?>">
                                         <?= (int) $prato['disponivel'] === 1 ? 'Ativo' : 'Inativo' ?>
-                                    </button>
-                                </form>
-                            <?php else: ?>
-                                <span class="status <?= (int) $prato['disponivel'] === 1 ? 'status-pronto' : 'status-cancelado' ?>">
-                                    <?= (int) $prato['disponivel'] === 1 ? 'Ativo' : 'Inativo' ?>
-                                </span>
-                            <?php endif; ?>
+                                    </span>
+                                <?php endif; ?>
 
-                            <?php if (hasRole('admin')): ?>
-                                <a class="btn btn-ghost" href="editar_prato.php?id=<?= (int) $prato['id'] ?>">Editar</a>
-                                <form method="post" action="../controllers/deletar_prato.php" onsubmit="return confirm('Excluir este prato?');">
-                                    <?= csrfField() ?>
-                                    <input type="hidden" name="id" value="<?= (int) $prato['id'] ?>">
-                                    <button class="btn btn-danger" type="submit">Excluir</button>
-                                </form>
-                            <?php else: ?>
-                                <span class="muted">Operacional</span>
-                            <?php endif; ?>
-                        </div>
-                    </td>
+                                <?php if (hasRole('admin')): ?>
+                                    <a class="btn btn-ghost" href="editar_prato.php?id=<?= (int) $prato['id'] ?>">Editar</a>
+                                    <form method="post" action="../controllers/deletar_prato.php" onsubmit="return confirm('Excluir este prato?');">
+                                        <?= csrfField() ?>
+                                        <input type="hidden" name="id" value="<?= (int) $prato['id'] ?>">
+                                        <button class="btn btn-danger" type="submit">Excluir</button>
+                                    </form>
+                                <?php else: ?>
+                                    <span class="muted">Operacional</span>
+                                <?php endif; ?>
+                            </div>
+                        </td>
+                    <?php endif; ?>
                 </tr>
             <?php endforeach; ?>
             <?php if (!$pratos): ?>
-                <tr><td colspan="5">Nenhum prato encontrado.</td></tr>
+                <tr><td colspan="<?= hasRole('admin') ? 5 : 3 ?>">Nenhum prato encontrado.</td></tr>
             <?php endif; ?>
         </tbody>
     </table>
