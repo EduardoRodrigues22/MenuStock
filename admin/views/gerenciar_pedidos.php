@@ -40,7 +40,13 @@ require_once __DIR__ . '/../config/header_admin.php';
             <div class="order-head">
                 <div>
                     <h2>Pedido #<?= (int) $pedido['id'] ?></h2>
-                    <span class="muted"><?= e($pedido['cliente']) ?> - <?= e($pedido['telefone']) ?></span>
+                    <span class="muted">
+                        <?php if (!empty($pedido['mesa'])): ?>
+                            <strong>Mesa <?= (int) $pedido['mesa'] ?></strong>
+                        <?php else: ?>
+                            <?= e($pedido['cliente']) ?> - <?= e($pedido['telefone']) ?>
+                        <?php endif; ?>
+                    </span>
                 </div>
                 <strong><?= formatMoney($pedido['total']) ?></strong>
                 <form method="post" action="../controllers/atualizar_status_pedido.php" class="inline-form pedido-status-form">

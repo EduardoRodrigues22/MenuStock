@@ -30,7 +30,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     if ($acao === 'confirmar') {
-        $pedidoId = $pedidoModel->criarDoCarrinho($usuarioId, (string) ($_POST['obs_geral'] ?? ''));
+        $mesa = isset($_POST['mesa']) && $_POST['mesa'] !== '' ? (int) $_POST['mesa'] : null;
+        $pedidoId = $pedidoModel->criarDoCarrinho($usuarioId, $mesa, (string) ($_POST['obs_geral'] ?? ''));
         flash($pedidoId ? 'success' : 'error', $pedidoId ? 'Pedido confirmado.' : 'Seu carrinho está vazio.');
         redirect($pedidoId ? 'meus_pedidos.php' : 'carrinho.php');
     }
@@ -59,6 +60,15 @@ require_once __DIR__ . '/admin/config/public_header.php';
     <form method="post" class="panel stack-form" style="margin-top:18px;">
         <?= csrfField() ?>
         <input type="hidden" name="acao" value="confirmar">
+        <label>
+            Mesa (1 a 20) *
+            <select name="mesa" required>
+                <option value="">Selecione sua mesa</option>
+                <?php for ($i = 1; $i <= 20; $i++): ?>
+                    <option value="<?= $i ?>">Mesa <?= $i ?></option>
+                <?php endfor; ?>
+            </select>
+        </label>
         <label>
             Observação geral do pedido
             <textarea name="obs_geral" rows="3" placeholder="Ex: Ponto da carne, restrições ou instruções gerais"></textarea>

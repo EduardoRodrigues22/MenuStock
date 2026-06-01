@@ -25,7 +25,7 @@ $flashMessages = consumeFlash();
         <a href="gerenciar_pedidos.php">Pedidos</a>
         <a href="gerenciar_reservas.php">Reservas</a>
         <?php if (hasRole('garcom')): ?>
-            <a href="menu_garcom.php">Menu Garçom</a>
+            <a href="menu_garcom.php">Menu</a>
         <?php endif; ?>
         <?php if (hasRole('admin')): ?>
             <a href="gerenciar_categorias.php">Categorias</a>
@@ -36,7 +36,7 @@ $flashMessages = consumeFlash();
     </nav>
     <div class="topbar-actions">
         <span><?= e($adminUser['nome'] ?? 'Usuário') ?> (<?= e(currentUserTipo() ?? '') ?>)</span>
-        <a class="btn btn-ghost" href="../../index.php">Loja</a>
+        <a class="btn btn-ghost" href="../../index.php">Cardápio</a>
         <form method="post" action="../controllers/logout.php">
             <?= csrfField() ?>
             <button class="btn btn-danger" type="submit">Sair</button>

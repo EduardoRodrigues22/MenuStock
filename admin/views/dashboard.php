@@ -76,7 +76,13 @@ require_once __DIR__ . '/../config/header_admin.php';
                     <?php foreach ($ultimosPedidos as $pedido): ?>
                         <tr>
                             <td><?= (int) $pedido['id'] ?></td>
-                            <td><?= e($pedido['cliente']) ?></td>
+                            <td>
+                                <?php if (!empty($pedido['mesa'])): ?>
+                                    <strong>Mesa <?= (int) $pedido['mesa'] ?></strong>
+                                <?php else: ?>
+                                    <?= e($pedido['cliente']) ?>
+                                <?php endif; ?>
+                            </td>
                             <td><span class="status status-<?= e($pedido['status']) ?>"><?= statusLabel($pedido['status']) ?></span></td>
                             <td><?= formatMoney($pedido['total']) ?></td>
                         </tr>

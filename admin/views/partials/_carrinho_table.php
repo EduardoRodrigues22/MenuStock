@@ -5,7 +5,6 @@ declare(strict_types=1);
  * @var float $total
  */
 $isGarcom = hasRole('garcom');
-$clienteId = getActiveWaiterClientId();
 ?>
 <form method="post" class="panel">
     <?= csrfField() ?>

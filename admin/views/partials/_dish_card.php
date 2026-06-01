@@ -3,8 +3,7 @@ declare(strict_types=1);
 /**
  * @var array $prato
  */
-$isGarcom = hasRole('garcom');
-$clienteId = getActiveWaiterClientId();
+$isGarcom = hasRole('garcom') && basename($_SERVER['SCRIPT_NAME']) === 'menu_garcom.php';
 $precoAtual = $prato['preco_promocional'] !== null
     ? (float) $prato['preco_promocional']
     : (float) $prato['preco'];
@@ -57,7 +56,7 @@ $imgErrorSrc = $isGarcom
                 </div>
             </div>
         <?php else: ?>
-            <div class="price-row">
+            <div class="price-row dish-price-row">
                 <?php if ($prato['preco_promocional'] !== null): ?>
                     <span class="old-price"><?= formatMoney($prato['preco']) ?></span>
                 <?php endif; ?>
@@ -67,17 +66,20 @@ $imgErrorSrc = $isGarcom
             <form method="post" class="stack-form">
                 <?= csrfField() ?>
                 <input type="hidden" name="acao" value="adicionar">
-                <input type="hidden" name="cliente_id" value="<?= (int) $clienteId ?>">
                 <input type="hidden" name="prato_id" value="<?= (int) $prato['id'] ?>">
 
-                <label>
-                    Quantidade
-                    <input class="small-input" type="number" name="quantidade" value="1" min="1" max="99">
+                <label class="qty-label">
+                    <span>Quantidade</span>
+                    <div class="qty-control">
+                        <button type="button" class="qty-btn qty-minus">&minus;</button>
+                        <input class="qty-input" type="number" name="quantidade" value="1" min="1" max="99" readonly>
+                        <button type="button" class="qty-btn qty-plus">+</button>
+                    </div>
                 </label>
 
-                <label>
-                    Observação
-                    <textarea name="obs_item" rows="2" placeholder="Ex: sem cebola"></textarea>
+                <label class="obs-label">
+                    <span>Observação</span>
+                    <textarea name="obs_item" rows="2" placeholder="Ex: sem sal"></textarea>
                 </label>
 
                 <button class="btn btn-primary" type="submit">Adicionar ao menu</button>

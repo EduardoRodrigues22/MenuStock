@@ -15,12 +15,12 @@ class Pedido
         $this->pdo = getConnection();
     }
 
-    public function criarDoCarrinho(int $usuarioId, string $obsGeral = ''): ?int
+    public function criarDoCarrinho(int $usuarioId, ?int $mesa = null, string $obsGeral = ''): ?int
     {
-        return $this->criarDoCarrinhoParaUsuario($usuarioId, $usuarioId, $obsGeral);
+        return $this->criarDoCarrinhoParaUsuario($usuarioId, $usuarioId, $mesa, $obsGeral);
     }
 
-    public function criarDoCarrinhoParaUsuario(int $carrinhoUsuarioId, int $pedidoUsuarioId, string $obsGeral = ''): ?int
+    public function criarDoCarrinhoParaUsuario(int $carrinhoUsuarioId, ?int $pedidoUsuarioId, ?int $mesa = null, string $obsGeral = ''): ?int
     {
         $carrinho = new Carrinho();
         $itens = $carrinho->listarPorUsuario($carrinhoUsuarioId);
@@ -34,9 +34,9 @@ class Pedido
 
         try {
             $pedidoStmt = $this->pdo->prepare(
-                'INSERT INTO pedidos (usuario_id, status, obs_geral, total) VALUES (?, "recebido", ?, ?)'
+                'INSERT INTO pedidos (usuario_id, status, obs_geral, total, mesa) VALUES (?, "recebido", ?, ?, ?)'
             );
-            $pedidoStmt->execute([$pedidoUsuarioId, trim($obsGeral), $total]);
+            $pedidoStmt->execute([$pedidoUsuarioId, trim($obsGeral), $total, $mesa]);
             $pedidoId = (int) $this->pdo->lastInsertId();
 
             $itemStmt = $this->pdo->prepare(
@@ -80,10 +80,10 @@ class Pedido
 
     public function listar(?string $status = null, bool $somenteHoje = false): array
     {
-        $sql = "SELECT p.id, p.status, p.total, p.obs_geral, p.created_at, p.updated_at,
+        $sql = "SELECT p.id, p.status, p.total, p.obs_geral, p.created_at, p.updated_at, p.mesa,
                        u.nome AS cliente, u.telefone, COUNT(ip.id) AS total_itens
                 FROM pedidos p
-                JOIN usuarios u ON u.id = p.usuario_id
+                LEFT JOIN usuarios u ON u.id = p.usuario_id
                 LEFT JOIN itens_pedido ip ON ip.pedido_id = p.id";
         $params = [];
         $where = [];
@@ -101,7 +101,7 @@ class Pedido
             $sql .= ' WHERE ' . implode(' AND ', $where);
         }
 
-        $sql .= ' GROUP BY p.id, p.status, p.total, p.obs_geral, p.created_at, p.updated_at, u.nome, u.telefone
+        $sql .= ' GROUP BY p.id, p.status, p.total, p.obs_geral, p.created_at, p.updated_at, p.mesa, u.nome, u.telefone
                   ORDER BY p.created_at DESC';
 
         $stmt = $this->pdo->prepare($sql);
@@ -123,7 +123,7 @@ class Pedido
         $stmt = $this->pdo->prepare(
             'SELECT p.*, u.nome AS cliente, u.email, u.telefone
              FROM pedidos p
-             JOIN usuarios u ON u.id = p.usuario_id
+             LEFT JOIN usuarios u ON u.id = p.usuario_id
              WHERE p.id = ?'
         );
         $stmt->execute([$id]);

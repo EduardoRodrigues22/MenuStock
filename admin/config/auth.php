@@ -99,19 +99,19 @@ function canManagePratoDisponibilidade(): bool
     return hasRole('admin');
 }
 
-function getActiveWaiterClientId(): int
+function getActiveWaiterTable(): int
 {
-    return isset($_SESSION['active_waiter_client_id']) ? (int) $_SESSION['active_waiter_client_id'] : 0;
+    return isset($_SESSION['active_waiter_table']) ? (int) $_SESSION['active_waiter_table'] : 0;
 }
 
-function setActiveWaiterClientId(int $id): void
+function setActiveWaiterTable(int $table): void
 {
-    $_SESSION['active_waiter_client_id'] = $id;
+    $_SESSION['active_waiter_table'] = $table;
 }
 
-function clearActiveWaiterClientId(): void
+function clearActiveWaiterTable(): void
 {
-    unset($_SESSION['active_waiter_client_id']);
+    unset($_SESSION['active_waiter_table']);
 }
 
 function handleGenericDeletion(
