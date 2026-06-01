@@ -102,11 +102,12 @@ class Reserva
     {
         $sql = "SELECT r.*, u.nome AS cliente, u.telefone
                 FROM reservas r
-                JOIN usuarios u ON u.id = r.usuario_id";
+                JOIN usuarios u ON u.id = r.usuario_id
+                WHERE r.data >= CURDATE()";
         $params = [];
 
         if ($data) {
-            $sql .= ' WHERE r.data = ?';
+            $sql .= ' AND r.data = ?';
             $params[] = $data;
         }
 
