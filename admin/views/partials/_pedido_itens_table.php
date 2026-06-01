@@ -5,7 +5,7 @@ declare(strict_types=1);
  */
 ?>
 <div class="table-wrap">
-    <table>
+    <table class="pedidos-card-table">
         <thead>
             <tr>
                 <th>Item</th>
