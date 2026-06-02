@@ -143,4 +143,23 @@ class Pedido
         $stmt->execute([$pedidoId]);
         return $stmt->fetchAll();
     }
+    public function contar(?string $status = null, bool $somenteHoje = false): int
+    {
+        $sql    = 'SELECT COUNT(*) FROM pedidos p WHERE 1=1';
+        $params = [];
+
+        if ($status !== null && $status !== '') {
+            $sql      .= ' AND p.status = ?';
+            $params[]  = $status;
+        }
+
+        if ($somenteHoje) {
+            $sql .= ' AND p.created_at >= CURDATE()';
+            $sql .= ' AND p.created_at < DATE_ADD(CURDATE(), INTERVAL 1 DAY)';
+        }
+
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute($params);
+        return (int) $stmt->fetchColumn();
+    }
 }

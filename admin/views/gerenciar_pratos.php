@@ -35,11 +35,11 @@ require_once __DIR__ . '/../config/header_admin.php';
 
 <section class="toolbar section-head">
     <form class="filters" method="get">
-        <label>
+        <label style="min-width: 150px;">
             Buscar
             <input type="search" name="q" value="<?= e($busca) ?>" placeholder="Nome ou categoria">
         </label>
-        <label>
+        <label style="min-width: 130px;">
             Categoria
             <select name="categoria">
                 <option value="">Todas</option>
@@ -50,8 +50,10 @@ require_once __DIR__ . '/../config/header_admin.php';
                 <?php endforeach; ?>
             </select>
         </label>
-        <button class="btn btn-primary" type="submit">Filtrar</button>
-        <a class="btn btn-ghost" href="gerenciar_pratos.php">Limpar</a>
+        <div class="inline-form">
+            <button class="btn btn-primary" type="submit">Filtrar</button>
+            <a class="btn btn-ghost" href="gerenciar_pratos.php">Limpar</a>
+        </div>
     </form>
     <?php if (hasRole('admin')): ?>
         <a class="btn btn-secondary" href="cadastrar_prato.php">Novo prato</a>

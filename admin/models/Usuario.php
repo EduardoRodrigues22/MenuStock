@@ -18,11 +18,33 @@ class Usuario
         $stmt->execute([strtolower(trim($email))]);
         $usuario = $stmt->fetch();
 
-        if ($usuario && password_verify($senha, $usuario['senha'])) {
-            return $usuario;
+        if (!$usuario) {
+            return null;
         }
 
-        return null;
+        // Verifica bloqueio ativo
+        if ($usuario['locked_until'] && new \DateTime() < new \DateTime($usuario['locked_until'])) {
+            throw new \RuntimeException('Conta bloqueada até as ' .
+                (new \DateTime($usuario['locked_until']))->format('H:i') . '.');
+        }
+
+        if (!password_verify($senha, $usuario['senha'])) {
+            $tentativas = (int) $usuario['login_attempts'] + 1;
+            $bloqueio = $tentativas >= 5 ? date('Y-m-d H:i:s', strtotime('+15 minutes')) : null;
+
+            $this->pdo->prepare(
+                'UPDATE usuarios SET login_attempts = ?, locked_until = ? WHERE id = ?'
+            )->execute([$tentativas, $bloqueio, $usuario['id']]);
+
+            return null;
+        }
+
+        // Login OK — zera contadores
+        $this->pdo->prepare(
+            'UPDATE usuarios SET login_attempts = 0, locked_until = NULL WHERE id = ?'
+        )->execute([$usuario['id']]);
+
+        return $usuario;
     }
 
     public function cadastrar(array $dados): int

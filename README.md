@@ -100,4 +100,5 @@ Para melhorar o foco operacional e a produtividade, o painel do garçom possui a
 
 ## 👨‍💻 Autores e Contexto
 Projeto acadêmico desenvolvido para a disciplina de **Linguagens de Programação 1** do curso de **Engenharia da Computação** — UNIFIPMoc / Afya.
-* **Professor**: Evandro Júnior
+* **Professor**: Evandro Júnior.
+* **Acadêmico**: Carlos Eduardo Rodrigues Brito.

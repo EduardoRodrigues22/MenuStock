@@ -129,7 +129,7 @@ require_once __DIR__ . '/../config/header_admin.php';
 
 <section class="toolbar section-head">
     <form method="get" class="filters">
-        <label>
+        <label style="min-width: 160px;">
             Mesa do pedido
             <select name="mesa" onchange="this.form.submit()">
                 <option value="">Selecionar mesa</option>
@@ -175,12 +175,12 @@ require_once __DIR__ . '/../config/header_admin.php';
 
 <section class="toolbar">
     <form class="filters" method="get" action="menu_garcom.php">
-        <label>
+        <label style="min-width: 150px;">
             Buscar
             <input type="search" name="q" value="<?= e($busca) ?>" placeholder="Nome, categoria ou descrição">
         </label>
 
-        <label>
+        <label style="min-width: 130px;">
             Categoria
             <select name="categoria">
                 <option value="">Todas</option>
@@ -192,8 +192,10 @@ require_once __DIR__ . '/../config/header_admin.php';
             </select>
         </label>
 
-        <button class="btn btn-primary" type="submit">Filtrar</button>
-        <a class="btn btn-ghost" href="<?= e(menuGarcomUrl()) ?>">Limpar</a>
+        <div class="inline-form">
+            <button class="btn btn-primary" type="submit">Filtrar</button>
+            <a class="btn btn-ghost" href="<?= e(menuGarcomUrl()) ?>">Limpar</a>
+        </div>
     </form>
 </section>
 

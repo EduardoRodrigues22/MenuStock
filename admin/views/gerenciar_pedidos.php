@@ -19,7 +19,7 @@ require_once __DIR__ . '/../config/header_admin.php';
 
 <section class="toolbar section-head">
     <form method="get" class="filters">
-        <label>
+        <label style="min-width: 140px;">
             Status
             <select name="status">
                 <option value="">Todos</option>
@@ -28,18 +28,20 @@ require_once __DIR__ . '/../config/header_admin.php';
                 <?php endforeach; ?>
             </select>
         </label>
-        <button class="btn btn-primary" type="submit">Filtrar</button>
-        <a class="btn btn-ghost" href="gerenciar_pedidos.php">Limpar</a>
+        <div class="inline-form">
+            <button class="btn btn-primary" type="submit">Filtrar</button>
+            <a class="btn btn-ghost" href="gerenciar_pedidos.php">Limpar</a>
+        </div>
     </form>
 </section>
 
 <section class="stack">
-    <?php foreach ($pedidos as $pedido): ?>
+    <?php foreach ($pedidos as $i => $pedido): ?>
         <?php $itens = $pedidoModel->itens((int) $pedido['id']); ?>
         <article class="panel order-card">
             <div class="order-head">
                 <div>
-                    <h2>Pedido #<?= (int) $pedido['id'] ?></h2>
+                    <h2>Pedido #<?= count($pedidos) - $i ?></h2>
                     <span class="muted">
                         <?php if (!empty($pedido['mesa'])): ?>
                             <strong>Mesa <?= (int) $pedido['mesa'] ?></strong>

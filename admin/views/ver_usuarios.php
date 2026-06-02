@@ -19,12 +19,14 @@ require_once __DIR__ . '/../config/header_admin.php';
 
 <section class="toolbar section-head">
     <form method="get" class="filters">
-        <label>
+        <label style="min-width: 150px;">
             Buscar
             <input type="search" name="q" value="<?= e($busca) ?>" placeholder="Nome ou e-mail">
         </label>
-        <button class="btn btn-primary" type="submit">Filtrar</button>
-        <a class="btn btn-ghost" href="ver_usuarios.php">Limpar</a>
+        <div class="inline-form">
+            <button class="btn btn-primary" type="submit">Filtrar</button>
+            <a class="btn btn-ghost" href="ver_usuarios.php">Limpar</a>
+        </div>
     </form>
     <a class="btn btn-secondary" href="cadastrar_usuario.php">Novo usuário</a>
 </section>

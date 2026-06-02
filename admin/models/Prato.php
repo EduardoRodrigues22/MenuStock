@@ -201,6 +201,19 @@ class Prato
             throw new RuntimeException('Formato de imagem não permitido.');
         }
 
+        // Validação real de MIME via conteúdo do arquivo
+        $mime = mime_content_type((string) $arquivo['tmp_name']);
+        $mimesPermitidos = [
+            'image/jpeg',
+            'image/png',
+            'image/webp',
+            'image/gif',
+        ];
+
+        if (!in_array($mime, $mimesPermitidos, true)) {
+            throw new RuntimeException('O conteúdo do arquivo não corresponde a uma imagem válida.');
+        }
+
         $nome = bin2hex(random_bytes(12)) . '.' . $extensao;
         $destinoDir = __DIR__ . '/../public/imagens';
 

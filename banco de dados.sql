@@ -482,6 +482,8 @@ CREATE TABLE `usuarios` (
   `senha` varchar(255) NOT NULL,
   `telefone` varchar(20) DEFAULT NULL,
   `tipo` enum('admin','garcom','user') NOT NULL DEFAULT 'user',
+  `login_attempts` tinyint(3) UNSIGNED NOT NULL DEFAULT 0,
+  `locked_until` datetime DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -554,7 +556,7 @@ CREATE TABLE `vw_reservas_painel` (
 --
 DROP TABLE IF EXISTS `vw_pedidos_resumo`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_pedidos_resumo`  AS SELECT `ped`.`id` AS `id`, `ped`.`status` AS `status`, `ped`.`total` AS `total`, `ped`.`obs_geral` AS `obs_geral`, `ped`.`created_at` AS `created_at`, `u`.`nome` AS `cliente`, `u`.`telefone` AS `telefone`, count(`ip`.`id`) AS `total_itens` FROM ((`pedidos` `ped` join `usuarios` `u` on(`u`.`id` = `ped`.`usuario_id`)) join `itens_pedido` `ip` on(`ip`.`pedido_id` = `ped`.`id`)) GROUP BY `ped`.`id`, `ped`.`status`, `ped`.`total`, `ped`.`obs_geral`, `ped`.`created_at`, `u`.`nome`, `u`.`telefone` ORDER BY `ped`.`created_at` DESC ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_pedidos_resumo`  AS SELECT `ped`.`id` AS `id`, `ped`.`status` AS `status`, `ped`.`total` AS `total`, `ped`.`obs_geral` AS `obs_geral`, `ped`.`created_at` AS `created_at`, COALESCE(`u`.`nome`, CONCAT('Mesa ', `ped`.`mesa`)) AS `cliente`, `u`.`telefone` AS `telefone`, count(`ip`.`id`) AS `total_itens` FROM ((`pedidos` `ped` left join `usuarios` `u` on(`u`.`id` = `ped`.`usuario_id`)) left join `itens_pedido` `ip` on(`ip`.`pedido_id` = `ped`.`id`)) GROUP BY `ped`.`id`, `ped`.`status`, `ped`.`total`, `ped`.`obs_geral`, `ped`.`created_at`, `u`.`nome`, `u`.`telefone`, `ped`.`mesa` ORDER BY `ped`.`created_at` DESC ;
 
 -- --------------------------------------------------------
 

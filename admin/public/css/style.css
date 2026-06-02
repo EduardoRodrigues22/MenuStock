@@ -1396,3 +1396,26 @@ button[disabled] {
 .promocao-actions .btn {
     white-space: nowrap;
 }
+
+/* ── Badge (contagem em headings) ── */
+.badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 22px;
+    height: 22px;
+    padding: 0 7px;
+    border-radius: 999px;
+    background: var(--primary);
+    color: #fff;
+    font-size: 0.75rem;
+    font-weight: 700;
+    vertical-align: middle;
+    margin-left: 6px;
+}
+
+/* ── Label de contexto no dashboard ── */
+.dashboard-date-label {
+    margin: 4px 0 10px;
+    font-size: 0.85rem;
+}

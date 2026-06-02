@@ -14,6 +14,15 @@ class Reserva
     {
         $this->pdo = getConnection();
         $this->capacidadePorHorario = $capacidadePorHorario;
+        $this->atualizarReservasExpiradas();
+    }
+
+    private function atualizarReservasExpiradas(): void
+    {
+        $stmt = $this->pdo->prepare(
+            'UPDATE reservas SET status = "cancelada" WHERE status = "pendente" AND data < CURDATE()'
+        );
+        $stmt->execute();
     }
 
     public function cadastrar(int $usuarioId, array $dados): int

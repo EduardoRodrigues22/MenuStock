@@ -32,18 +32,19 @@ require_once __DIR__ . '/../config/header_admin.php';
 
 <section class="toolbar section-head">
     <form method="get" class="filters">
-        <label>
+        <label style="min-width: 150px;">
             Data
             <input type="date" name="data" value="<?= e($dataFiltro) ?>" min="<?= date('Y-m-d') ?>">
         </label>
 
-        <button class="btn btn-primary" type="submit">
-            Filtrar
-        </button>
-
-        <a class="btn btn-ghost" href="gerenciar_reservas.php">
-            Limpar
-        </a>
+        <div class="inline-form">
+            <button class="btn btn-primary" type="submit">
+                Filtrar
+            </button>
+            <a class="btn btn-ghost" href="gerenciar_reservas.php">
+                Limpar
+            </a>
+        </div>
     </form>
 </section>
 
