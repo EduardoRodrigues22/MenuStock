@@ -11,9 +11,9 @@ $pdo = getConnection();
 $pedidoModel = new Pedido();
 $reservaModel = new Reserva();
 
-$pedidosRecebidos = (int) $pdo->query("SELECT COUNT(*) FROM pedidos WHERE status = 'recebido'")->fetchColumn();
-$pedidosPreparo = (int) $pdo->query("SELECT COUNT(*) FROM pedidos WHERE status = 'preparo'")->fetchColumn();
-$pedidosProntos = (int) $pdo->query("SELECT COUNT(*) FROM pedidos WHERE status = 'pronto'")->fetchColumn();
+$pedidosRecebidos = (int) $pdo->query("SELECT COUNT(*) FROM pedidos WHERE status = 'recebido' AND DATE(created_at) = CURDATE()")->fetchColumn();
+$pedidosPreparo = (int) $pdo->query("SELECT COUNT(*) FROM pedidos WHERE status = 'preparo' AND DATE(created_at) = CURDATE()")->fetchColumn();
+$pedidosProntos = (int) $pdo->query("SELECT COUNT(*) FROM pedidos WHERE status = 'pronto' AND DATE(created_at) = CURDATE()")->fetchColumn();
 $reservasHoje = (int) $pdo->query('SELECT COUNT(*) FROM reservas WHERE data = CURDATE() AND status <> "cancelada"')->fetchColumn();
 $pratosIndisponiveis = (int) $pdo->query('SELECT COUNT(*) FROM pratos WHERE disponivel = 0')->fetchColumn();
 $promocoesAtivas = (int) $pdo->query('SELECT COUNT(*) FROM vw_promocoes_ativas')->fetchColumn();
