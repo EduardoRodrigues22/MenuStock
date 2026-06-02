@@ -11,7 +11,9 @@ $pdo = getConnection();
 $pedidoModel = new Pedido();
 $reservaModel = new Reserva();
 
-$pedidosAbertos = (int) $pdo->query("SELECT COUNT(*) FROM pedidos WHERE status IN ('recebido','preparo','pronto')")->fetchColumn();
+$pedidosRecebidos = (int) $pdo->query("SELECT COUNT(*) FROM pedidos WHERE status = 'recebido'")->fetchColumn();
+$pedidosPreparo = (int) $pdo->query("SELECT COUNT(*) FROM pedidos WHERE status = 'preparo'")->fetchColumn();
+$pedidosProntos = (int) $pdo->query("SELECT COUNT(*) FROM pedidos WHERE status = 'pronto'")->fetchColumn();
 $reservasHoje = (int) $pdo->query('SELECT COUNT(*) FROM reservas WHERE data = CURDATE() AND status <> "cancelada"')->fetchColumn();
 $pratosIndisponiveis = (int) $pdo->query('SELECT COUNT(*) FROM pratos WHERE disponivel = 0')->fetchColumn();
 $promocoesAtivas = (int) $pdo->query('SELECT COUNT(*) FROM vw_promocoes_ativas')->fetchColumn();
@@ -37,8 +39,16 @@ require_once __DIR__ . '/../config/header_admin.php';
 
 <section class="stats-grid <?= $mostrarReceita ? '' : 'stats-grid-centered' ?>">
     <article class="stat-card">
-        <span>Pedidos abertos</span>
-        <strong><?= $pedidosAbertos ?></strong>
+        <span>Recebidos</span>
+        <strong><?= $pedidosRecebidos ?></strong>
+    </article>
+    <article class="stat-card">
+        <span>Em preparo</span>
+        <strong><?= $pedidosPreparo ?></strong>
+    </article>
+    <article class="stat-card">
+        <span>Prontos</span>
+        <strong><?= $pedidosProntos ?></strong>
     </article>
     <article class="stat-card">
         <span>Reservas de hoje</span>
