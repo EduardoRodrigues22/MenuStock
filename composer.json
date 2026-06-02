@@ -1,0 +1,8 @@
+{
+    "name": "eduardorodrigues22/menustock",
+    "description": "MenuStock - Sistema de Gerenciamento de Restaurante",
+    "require": {
+        "php": ">=8.0",
+        "ext-pdo_mysql": "*"
+    }
+}
