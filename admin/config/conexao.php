@@ -9,12 +9,13 @@ function getConnection(): PDO
         return $pdo;
     }
 
-    $host = getenv('DB_HOST') ?: 'localhost';
-    $database = getenv('DB_NAME') ?: 'menustock';
-    $user = getenv('DB_USER') ?: 'root';
-    $password = getenv('DB_PASS') ?: '';
+    $host = getenv('DB_HOST') ?: getenv('MYSQLHOST') ?: 'zephyr.proxy.rlwy.net';
+    $port = getenv('DB_PORT') ?: getenv('MYSQLPORT') ?: '46100';
+    $database = getenv('DB_NAME') ?: getenv('MYSQLDATABASE') ?: 'menustock';
+    $user = getenv('DB_USER') ?: getenv('MYSQLUSER') ?: 'root';
+    $password = getenv('DB_PASS') ?: getenv('MYSQLPASSWORD') ?: 'ojuEPvwwMfxxPVxEbtBZrEFVKfSvwfrr';
 
-    $dsn = "mysql:host={$host};dbname={$database};charset=utf8mb4";
+    $dsn = "mysql:host={$host};port={$port};dbname={$database};charset=utf8mb4";
 
     try {
         $pdo = new PDO($dsn, $user, $password, [

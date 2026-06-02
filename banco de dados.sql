@@ -7,6 +7,33 @@
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
+CREATE DATABASE IF NOT EXISTS `menustock`
+  DEFAULT CHARACTER SET utf8mb4
+  COLLATE utf8mb4_general_ci;
+
+USE `menustock`;
+
+SET FOREIGN_KEY_CHECKS = 0;
+
+-- Drop all existing views and tables to avoid metadata/foreign key verification errors during recreation
+DROP VIEW IF EXISTS `vw_pedidos_resumo`;
+DROP VIEW IF EXISTS `vw_promocoes_ativas`;
+DROP VIEW IF EXISTS `vw_reservas_painel`;
+
+DROP TABLE IF EXISTS `carrinho`;
+DROP TABLE IF EXISTS `prato_ingrediente`;
+DROP TABLE IF EXISTS `itens_pedido`;
+DROP TABLE IF EXISTS `promocoes`;
+DROP TABLE IF EXISTS `reservas`;
+DROP TABLE IF EXISTS `pedidos`;
+DROP TABLE IF EXISTS `pratos`;
+DROP TABLE IF EXISTS `categorias`;
+DROP TABLE IF EXISTS `ingredientes`;
+DROP TABLE IF EXISTS `usuarios`;
+DROP TABLE IF EXISTS `vw_pedidos_resumo`;
+DROP TABLE IF EXISTS `vw_promocoes_ativas`;
+DROP TABLE IF EXISTS `vw_reservas_painel`;
+
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
@@ -27,6 +54,7 @@ SET time_zone = "+00:00";
 -- Table structure for table `carrinho`
 --
 
+DROP TABLE IF EXISTS `carrinho`;
 CREATE TABLE `carrinho` (
   `id` int(11) NOT NULL,
   `usuario_id` int(11) NOT NULL,
@@ -52,6 +80,7 @@ INSERT INTO `carrinho` (`id`, `usuario_id`, `prato_id`, `quantidade`, `obs_item`
 -- Table structure for table `categorias`
 --
 
+DROP TABLE IF EXISTS `categorias`;
 CREATE TABLE `categorias` (
   `id` int(11) NOT NULL,
   `nome` varchar(100) NOT NULL,
@@ -79,6 +108,7 @@ INSERT INTO `categorias` (`id`, `nome`, `descricao`, `ordem_exibicao`, `created_
 -- Table structure for table `ingredientes`
 --
 
+DROP TABLE IF EXISTS `ingredientes`;
 CREATE TABLE `ingredientes` (
   `id` int(11) NOT NULL,
   `nome` varchar(100) NOT NULL,
@@ -176,6 +206,7 @@ INSERT INTO `ingredientes` (`id`, `nome`, `unidade`, `created_at`, `updated_at`)
 -- Table structure for table `itens_pedido`
 --
 
+DROP TABLE IF EXISTS `itens_pedido`;
 CREATE TABLE `itens_pedido` (
   `id` int(11) NOT NULL,
   `pedido_id` int(11) NOT NULL,
@@ -204,6 +235,7 @@ INSERT INTO `itens_pedido` (`id`, `pedido_id`, `prato_id`, `quantidade`, `preco_
 -- Table structure for table `pedidos`
 --
 
+DROP TABLE IF EXISTS `pedidos`;
 CREATE TABLE `pedidos` (
   `id` int(11) NOT NULL,
   `usuario_id` int(11) DEFAULT NULL,
@@ -234,6 +266,7 @@ INSERT INTO `pedidos` (`id`, `usuario_id`, `status`, `obs_geral`, `total`, `crea
 -- Table structure for table `pratos`
 --
 
+DROP TABLE IF EXISTS `pratos`;
 CREATE TABLE `pratos` (
   `id` int(11) NOT NULL,
   `categoria_id` int(11) NOT NULL,
@@ -289,6 +322,7 @@ INSERT INTO `pratos` (`id`, `categoria_id`, `nome`, `descricao`, `preco`, `tempo
 -- Table structure for table `prato_ingrediente`
 --
 
+DROP TABLE IF EXISTS `prato_ingrediente`;
 CREATE TABLE `prato_ingrediente` (
   `prato_id` int(11) NOT NULL,
   `ingrediente_id` int(11) NOT NULL,
@@ -420,6 +454,7 @@ INSERT INTO `prato_ingrediente` (`prato_id`, `ingrediente_id`, `quantidade`) VAL
 -- Table structure for table `promocoes`
 --
 
+DROP TABLE IF EXISTS `promocoes`;
 CREATE TABLE `promocoes` (
   `id` int(11) NOT NULL,
   `prato_id` int(11) NOT NULL,
@@ -447,6 +482,7 @@ INSERT INTO `promocoes` (`id`, `prato_id`, `nome`, `descricao`, `tipo`, `valor`,
 -- Table structure for table `reservas`
 --
 
+DROP TABLE IF EXISTS `reservas`;
 CREATE TABLE `reservas` (
   `id` int(11) NOT NULL,
   `usuario_id` int(11) NOT NULL,
@@ -475,6 +511,7 @@ INSERT INTO `reservas` (`id`, `usuario_id`, `data`, `horario`, `num_pessoas`, `s
 -- Table structure for table `usuarios`
 --
 
+DROP TABLE IF EXISTS `usuarios`;
 CREATE TABLE `usuarios` (
   `id` int(11) NOT NULL,
   `nome` varchar(100) NOT NULL,
@@ -504,6 +541,7 @@ INSERT INTO `usuarios` (`id`, `nome`, `email`, `senha`, `telefone`, `tipo`, `cre
 -- Stand-in structure for view `vw_pedidos_resumo`
 -- (See below for the actual view)
 --
+DROP TABLE IF EXISTS `vw_pedidos_resumo`;
 CREATE TABLE `vw_pedidos_resumo` (
 `id` int(11)
 ,`status` enum('recebido','preparo','pronto','entregue','cancelado')
@@ -521,6 +559,7 @@ CREATE TABLE `vw_pedidos_resumo` (
 -- Stand-in structure for view `vw_promocoes_ativas`
 -- (See below for the actual view)
 --
+DROP TABLE IF EXISTS `vw_promocoes_ativas`;
 CREATE TABLE `vw_promocoes_ativas` (
 `promocao_id` int(11)
 ,`promocao` varchar(100)
@@ -538,6 +577,7 @@ CREATE TABLE `vw_promocoes_ativas` (
 -- Stand-in structure for view `vw_reservas_painel`
 -- (See below for the actual view)
 --
+DROP TABLE IF EXISTS `vw_reservas_painel`;
 CREATE TABLE `vw_reservas_painel` (
 `id` int(11)
 ,`data` date
@@ -761,6 +801,8 @@ ALTER TABLE `promocoes`
 --
 ALTER TABLE `reservas`
   ADD CONSTRAINT `fk_reservas_usuario` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+SET FOREIGN_KEY_CHECKS = 1;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
