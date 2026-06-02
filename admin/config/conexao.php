@@ -15,7 +15,7 @@ function getConnection(): PDO
     $user = getenv('DB_USER') ?: getenv('MYSQLUSER') ?: 'root';
     $password = getenv('DB_PASS') ?: getenv('MYSQLPASSWORD') ?: 'ojuEPvwwMfxxPVxEbtBZrEFVKfSvwfrr';
 
-    $dsn = "mysql:host={$host};port={$port};dbname={$database};charset=utf8mb4";
+    $dsn = "mysql:host={$host};port={$port};dbname={$database};charset=utf8mb4;connect_timeout=5";
 
     try {
         $pdo = new PDO($dsn, $user, $password, [
@@ -25,7 +25,7 @@ function getConnection(): PDO
         ]);
     } catch (PDOException $exception) {
         http_response_code(500);
-        exit('Falha ao conectar ao banco de dados.');
+        exit('Falha ao conectar ao banco de dados: ' . $exception->getMessage());
     }
 
     return $pdo;
